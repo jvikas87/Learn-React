@@ -1,0 +1,29 @@
+version: '2.1'
+services:
+  nginx:
+    build: .
+    links:
+      - "app"
+    ports:
+      - "8100:80"
+    depends_on:
+      - app
+  app:
+    image: mywebapp
+    restart: on-failure
+    depends_on:
+      db:
+       condition: service_healthy
+    links:
+      - "db"
+    environment:
+      db: db
+  db:
+    image: mysql
+    environment:
+      - "MYSQL_DATABASE=db"
+      - "MYSQL_ROOT_PASSWORD=root"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
