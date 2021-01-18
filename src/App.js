@@ -16,11 +16,11 @@ class App extends Component {
     );
   }
   componentDidMount(){
-    axios.get('/api/create')
-    .then(function (response) {
+    //axios.get('/api/create')
+    //.then(function (response) {
       // handle success
-      console.log(response);
-    })
+      //console.log(response);
+    //})
   }
   
 }
